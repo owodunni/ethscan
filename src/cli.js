@@ -20,8 +20,6 @@ const arguments = docopt(doc, {
   version: version,
 });
 
-console.log(arguments);
-
 const apiKey = process.env.ETHERSCAN;
 
 function exitError(error) {
@@ -37,6 +35,8 @@ if (arguments["--version"]) {
   console.log(version);
   process.exit(0);
 }
+
+log(arguments);
 
 if (!apiKey) {
   log(`
