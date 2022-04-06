@@ -1,0 +1,40 @@
+{
+  "name": "ethscan",
+  "version": "0.1.0",
+  "description": "A simple CLI tool for querrying contract information from etherscan",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owodunni/ethscan.git"
+  },
+  "keywords": [
+    "eth",
+    "etherscan",
+    "abi",
+    "bytecode",
+    "cli"
+  ],
+  "author": "Alexander Poole Jardèn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/owodunni/ethscan/issues"
+  },
+  "homepage": "https://github.com/owodunni/ethscan#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "docopt": "^0.6.2",
+    "dotenv": "^16.0.0"
+  },
+  "bin": {
+    "ethscan": "./src/cli.js"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "prettier": "^2.6.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "prettier --list-different 'src/*.{js,jsx,ts,tsx}' '*.{js,json}'",
+    "fix": "prettier --write 'src/*.{js,jsx,ts,tsx}' '*.{js,json}'"
+  }
+}
