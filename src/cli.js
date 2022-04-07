@@ -5,10 +5,13 @@ Usage:
   ethscan -h | --help | --version
 
 Options:
- -h --help            Show this screen.
- -v, --version        Show version.
- -o, --output=<file>  Write to output file
- -d, --debug          Print debug logs
+ -h --help              Show this screen.
+ -v, --version          Show version.
+ -o, --output=<file>    Write to output file.
+ -d, --debug            Print debug logs.
+
+Example:
+  $ ethscan abi 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
 `;
 const { docopt } = require("docopt");
 const { API } = require("./etherscan");
@@ -20,7 +23,8 @@ const arguments = docopt(doc, {
   version: version,
 });
 
-const apiKey = process.env.ETHERSCAN;
+const apiKey = process.env.ETHSCAN_KEY;
+const apiUrl = process.env.ETHSCAN_URL;
 
 function exitError(error) {
   console.error(error);
@@ -54,7 +58,7 @@ if (!address) {
   exitError("No address provided!");
 }
 
-const api = API(apiKey);
+const api = API(apiKey, apiUrl);
 let action = null;
 if (arguments.abi) {
   action = api.getAbi(address);
@@ -68,11 +72,12 @@ if (arguments.abi) {
 
 action
   .then((r) => {
+    const result = JSON.stringify(r, null, 2);
     const output = arguments["--output"];
     if (output) {
-      fs.writeFileSync(output, JSON.stringify(r));
+      fs.writeFileSync(output, result);
     } else {
-      console.log(r);
+      console.log(result);
     }
   })
   .then(() => process.exit(0))
