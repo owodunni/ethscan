@@ -1,7 +1,9 @@
 const Axios = require("axios");
 
-exports.API = (apiKey, apiURL = "https://api.etherscan.io/api") => {
-  const axios = new Axios.Axios({ baseURL: apiURL });
+exports.API = (apiKey, apiUrl) => {
+  if (!apiUrl) apiUrl = "https://api.etherscan.io";
+  apiUrl = `${apiUrl}/api`;
+  const axios = new Axios.Axios({ baseURL: apiUrl });
 
   const get = (module, action, address) =>
     axios
