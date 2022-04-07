@@ -15,4 +15,7 @@ jobs:
           node-version: 16
       - run: npm ci
       - run: npm run lint
-      - run: npm test
+      - name: Run npm test
+        env:
+          ETHSCAN_KEY: ${{secrets.ETHSCAN_KEY}}
+        run: npm test
