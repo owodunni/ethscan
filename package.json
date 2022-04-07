@@ -33,7 +33,7 @@
     "prettier": "^2.6.2"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "prettier --list-different 'src/*.{js,jsx,ts,tsx}' '*.{js,json}'",
     "fix": "prettier --write 'src/*.{js,jsx,ts,tsx}' '*.{js,json}'"
   }
