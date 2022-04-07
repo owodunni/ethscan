@@ -12,12 +12,20 @@ exports.API = (apiKey, apiUrl) => {
       )
       .then(parser);
 
-  const parser = (r) => {
-    return JSON.parse(JSON.parse(r.data).result);
+  const parser = (response) => {
+    const data = JSON.parse(response.data);
+    if (!data.result) throw data.message;
+    const result = data.result;
+    if (typeof result === "string") return JSON.parse(result);
+    return result;
+  };
+
+  const codeParser = (result) => {
+    return JSON.parse(result[0].SourceCode.slice(1, -1));
   };
   return {
     getAbi: (address) => get("contract", "getabi", address),
-    getCode: (address) => get("contract", "getsourcecode", address),
-    getByteCode: (address) => get("contract", "getbytecode", address),
+    getCode: (address) =>
+      get("contract", "getsourcecode", address).then(codeParser),
   };
 };

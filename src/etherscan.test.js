@@ -1,6 +1,11 @@
+require("dotenv").config();
 const { API } = require("./etherscan");
 
-const api = API();
+const apiKey = process.env.ETHSCAN_KEY;
+
+if (!apiKey) throw "No apiKey for etherscan present.";
+
+const api = API(apiKey);
 
 const someAbi = [
   {
@@ -12,70 +17,18 @@ const someAbi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-  {
-    constant: false,
-    inputs: [
-      { name: "newImplementation", type: "address" },
-      { name: "data", type: "bytes" },
-    ],
-    name: "upgradeToAndCall",
-    outputs: [],
-    payable: true,
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "implementation",
-    outputs: [{ name: "", type: "address" }],
-    payable: false,
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    constant: false,
-    inputs: [{ name: "newAdmin", type: "address" }],
-    name: "changeAdmin",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "admin",
-    outputs: [{ name: "", type: "address" }],
-    payable: false,
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ name: "_implementation", type: "address" }],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
-  { payable: true, stateMutability: "payable", type: "fallback" },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: false, name: "previousAdmin", type: "address" },
-      { indexed: false, name: "newAdmin", type: "address" },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [{ indexed: false, name: "implementation", type: "address" }],
-    name: "Upgraded",
-    type: "event",
-  },
+  // To not make this file unreadable the rest of the abi was removed.
 ];
+
+jest.setTimeout(10000);
 
 test("get abi", async () => {
   const abi = await api.getAbi("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
-  expect(abi).toStrictEqual(someAbi);
+  expect(abi[0]).toStrictEqual(someAbi[0]);
+});
+
+test("get code", async () => {
+  const code = await api.getCode("0xD33526068D116cE69F19A9ee46F0bd304F21A51f");
+  expect(code.language).toStrictEqual("Solidity");
+  expect(Object.keys(code.sources).length).toStrictEqual(11);
 });
