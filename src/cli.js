@@ -27,9 +27,9 @@ function exitError(error) {
   process.exit(1);
 }
 
-function log(message) {
+const log = (message) => {
   if (arguments["--debug"]) console.warn(message);
-}
+};
 
 if (arguments["--version"]) {
   console.log(version);
