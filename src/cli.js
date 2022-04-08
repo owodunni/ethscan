@@ -12,6 +12,7 @@ Options:
 
 Example:
   $ ethscan abi 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
+  $ ethscan code 0xD33526068D116cE69F19A9ee46F0bd304F21A51f -o ./code
 `;
 const { docopt } = require("docopt");
 const { API } = require("./etherscan");
