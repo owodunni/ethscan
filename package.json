@@ -1,7 +1,7 @@
 {
   "name": "@owodunni/ethscan",
   "version": "0.2.2",
-  "description": "A simple CLI tool for querrying contract information from etherscan",
+  "description": "A simple CLI for querying contract information from block-explorers",
   "main": "index.js",
   "repository": {
     "type": "git",
