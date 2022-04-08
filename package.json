@@ -1,6 +1,6 @@
 {
   "name": "@owodunni/ethscan",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A simple CLI for querying contract information from block-explorers",
   "main": "index.js",
   "repository": {
