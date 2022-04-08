@@ -21,8 +21,11 @@ ETHSCAN_URL='https://rinkeby.etherscan.io/api'
 ## Usage
 
 ```yaml
+ethscan -h
+```
+```yaml
 Usage:
-  ethscan (abi | byte | code) <address> [options]
+  ethscan (abi | code) <address> [options]
   ethscan -h | --help | --version
 
 Options:
@@ -32,26 +35,101 @@ Options:
  -d, --debug          Print debug logs
 ```
 
+**Output contract ABI:**
 ```yaml
-Example:
-  $ ethscan abi 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
-  > [
+ethscan abi 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
+```
+```yaml
+[
+{
+  "inputs": [
     {
-      "inputs": [
-        {
-          "internalType": "contract RocketStorageInterface",
-          "name": "_rocketStorageAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "contract IERC20",
-          "name": "_rocketTokenRPLFixedSupplyAddress",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
+      "internalType": "contract RocketStorageInterface",
+      "name": "_rocketStorageAddress",
+      "type": "address"
     },
-    ...
-    ]
+    {
+      "internalType": "contract IERC20",
+      "name": "_rocketTokenRPLFixedSupplyAddress",
+      "type": "address"
+    }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "constructor"
+},
+...
+]
+```
+
+**Save contract code:**
+```yaml
+ethscan code 0xD33526068D116cE69F19A9ee46F0bd304F21A51f -o ~/code
+```
+```json
+    ~/code  tree .
+.
+├── contracts
+│   ├── contract
+│   │   ├── RocketBase.sol
+│   │   └── token
+│   │       └── RocketTokenRPL.sol
+│   └── interface
+│       ├── dao
+│       │   └── protocol
+│       │       └── settings
+│       │           └── RocketDAOProtocolSettingsInflationInterface.sol
+│       ├── RocketStorageInterface.sol
+│       ├── RocketVaultInterface.sol
+│       └── token
+│           └── RocketTokenRPLInterface.sol
+└── @openzeppelin
+    └── contracts
+        ├── math
+        │   └── SafeMath.sol
+        ├── token
+        │   └── ERC20
+        │       ├── ERC20Burnable.sol
+        │       ├── ERC20.sol
+        │       └── IERC20.sol
+        └── utils
+            └── Context.sol
+
+14 directories, 11 files
+
+```
+**Output contract code:**
+```yaml
+ethscan code 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
+```
+
+```yaml
+[
+...
+{
+    content: '/**\n' +
+      '  *       .\n' +
+      '  *      / \\\n' +
+      "  *     |.'.|\n" +
+      "  *     |'.'|\n" +
+      "  *   ,'|   |`.\n" +
+      "  *  |,-'-|-'-.|\n" +
+      '  *   __|_| |         _        _      _____           _\n' +
+      '  *  | ___ \\|        | |      | |    | ___ \\         | |\n' +
+      '  *  | |_/ /|__   ___| | _____| |_   | |_/ /__   ___ | |\n' +
+      '  *  |    // _ \\ / __| |/ / _ \\ __|  |  __/ _ \\ / _ \\| |\n' +
+      '  *  | |\\ \\ (_) | (__|   <  __/ |_   | | | (_) | (_) | |\n' +
+      '  *  \\_| \\_\\___/ \\___|_|\\_\\___|\\__|  \\_|  \\___/ \\___/|_|\n' +
+      '  * +---------------------------------------------------+\n' +
+      '  * |    DECENTRALISED STAKING PROTOCOL FOR ETHEREUM    |\n' +
+      '  * +---------------------------------------------------+\n' +
+  ...
+      'interface RocketTokenRPLInterface is IERC20 {\n' +
+      '    function getInflationCalcTime() external view returns(uint256);\n' +
+      '    function getInflationIntervalTime() external view returns(uint256);\n' +
+  ...
+      '}\n',
+    path: '/contracts/interface/token/RocketTokenRPLInterface.sol'
+  }
+]
+
 ```
