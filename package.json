@@ -1,6 +1,6 @@
 {
   "name": "@owodunni/ethscan",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A simple CLI for querying contract information from block-explorers",
   "main": "index.js",
   "repository": {
@@ -9,9 +9,9 @@
   },
   "keywords": [
     "eth",
+    "ethereum",
     "etherscan",
     "abi",
-    "bytecode",
     "cli"
   ],
   "author": "Alexander Poole Jardèn",
