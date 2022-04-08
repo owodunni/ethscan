@@ -1,8 +1,7 @@
 # Ethscan
 [![CodeFactor](https://www.codefactor.io/repository/github/owodunni/ethscan/badge)](https://www.codefactor.io/repository/github/owodunni/ethscan)[![Build](https://github.com/owodunni/ethscan/actions/workflows/build.yml/badge.svg)](https://github.com/owodunni/ethscan/actions/workflows/build.yml)[![npm version](https://badge.fury.io/js/@owodunni%2Fethscan.svg)](https://badge.fury.io/js/@owodunni%2Fethscan)[![License](https://img.shields.io/github/license/owodunni/ethscan)](https://github.com/owodunni/ethscan/blob/main/LICENSE)[![codecov](https://codecov.io/gh/owodunni/ethscan/branch/main/graph/badge.svg?token=YIFCXZXJ7I)](https://codecov.io/gh/owodunni/ethscan)
 
-Ethscan querries information from a Blockexplorer and outputs it in the command
-line.
+A simple CLI for querying contract information from block-explorers
 
 ## Install
 ```
