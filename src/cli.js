@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 doc = `
 Usage:
-  ethscan (abi | byte | code) <address> [options]
+  ethscan (abi | code) <address> [options]
   ethscan -h | --help | --version
 
 Options:
@@ -17,6 +17,7 @@ const { docopt } = require("docopt");
 const { API } = require("./etherscan");
 const fs = require("fs");
 const { version } = require("../package.json");
+const { saver } = require("./saver");
 require("dotenv").config();
 
 const arguments = docopt(doc, {
@@ -58,27 +59,30 @@ if (!address) {
   exitError("No address provided!");
 }
 
+const output = arguments["--output"];
+
 const api = API(apiKey, apiUrl);
 let action = null;
 if (arguments.abi) {
-  action = api.getAbi(address);
-} else if (arguments.byte) {
-  action = api.getByteCode(address);
-} else if (arguments.code) {
-  action = api.getCode(address);
-} else {
-  exitError(`No valid actions found in ${JSON.stringify(arguments)}`);
-}
-
-action
-  .then((r) => {
+  action = api.getAbi(address).then((r) => {
     const result = JSON.stringify(r, null, 2);
-    const output = arguments["--output"];
     if (output) {
       fs.writeFileSync(output, result);
     } else {
       console.log(result);
     }
-  })
-  .then(() => process.exit(0))
-  .catch(exitError);
+  });
+} else if (arguments.code) {
+  action = api.getCode(address).then((r) => {
+    const sources = saver.format(r.sources);
+    if (output) {
+      return saver.save(output, sources);
+    } else {
+      sources.forEach(console.log);
+    }
+  });
+} else {
+  exitError(`No valid actions found in ${JSON.stringify(arguments)}`);
+}
+
+action.then(() => process.exit(0)).catch(exitError);
