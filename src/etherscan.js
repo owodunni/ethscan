@@ -21,14 +21,12 @@ exports.API = (apiKey, apiUrl) => {
   };
 
   const codeParser = (result) => {
-    const data = result[0].SourceCode.slice(1, -1);
-    if (data.startsWith('/ File:')) {
-      const lines = data.split('\n');
-      lines.splice(0, 1);
-      const source = lines.join('\n');
-      return {sources:{'all-in-one.sol':{content:source}}}
+    const data = result[0].SourceCode;
+    if (data.startsWith('// File:')) {
+      return {sources:{'all-in-one.sol':{content:data}}}
     } else {
-      return JSON.parse(data);
+      const dataSliced = result[0].SourceCode.slice(1, -1);
+      return JSON.parse(dataSliced);
     }
   };
   return {
