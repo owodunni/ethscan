@@ -5,28 +5,36 @@ Usage:
   ethscan -h | --help | --version
 
 Options:
- -h --help              Show this screen.
- -v, --version          Show version.
- -o, --output=<file>    Write to output file.
- -d, --debug            Print debug logs.
+  -o, --output=<file>    Write to output file.
+  -k, --api=<key>        API key
+  -u, --url=<url>        Block-explorer url
+  -c, --chain=<name>     Use predefined chain block-explorer
+  -h --help              Show this screen.
+  -v, --version          Show version.
+  -d, --debug            Print debug logs.
 
 Example:
   $ ethscan abi 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
   $ ethscan code 0xD33526068D116cE69F19A9ee46F0bd304F21A51f -o ./code
+  $ ethscan code 0xD33526068D116cE69F19A9ee46F0bd304F21A51f -c polygon
 `;
 const { docopt } = require("docopt");
 const { API } = require("./etherscan");
 const fs = require("fs");
 const { version } = require("../package.json");
 const { saver } = require("./saver");
+const { blockExplorer } = require("./explorers");
 require("dotenv").config();
 
 const arguments = docopt(doc, {
   version: version,
 });
 
-const apiKey = process.env.ETHSCAN_KEY;
-const apiUrl = process.env.ETHSCAN_URL;
+const apiKey = process.env.ETHSCAN_KEY ?? arguments["--api"];
+const apiUrl =
+  process.env.ETHSCAN_URL ??
+  arguments["--url"] ??
+  blockExplorer(arguments["--chain"]);
 
 function exitError(error) {
   console.error(error);
@@ -43,6 +51,7 @@ if (arguments["--version"]) {
 }
 
 log(arguments);
+log(`URL: ${apiUrl}`);
 
 if (!apiKey) {
   log(`
