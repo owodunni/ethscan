@@ -16,6 +16,7 @@ following environment variables can be set:
 ETHSCAN_KEY='Your api key'
 ETHSCAN_URL='https://rinkeby.etherscan.io/api'
 ```
+These can also be set by the cli.
 
 ## Usage
 
@@ -28,15 +29,18 @@ Usage:
   ethscan -h | --help | --version
 
 Options:
- -h --help            Show this screen.
- -v, --version        Show version.
- -o, --output=<file>  Write to output file
- -d, --debug          Print debug logs
+  -o, --output=<file>    Write to output file.
+  -k, --api=<key>        API key
+  -u, --url=<url>        Block-explorer url
+  -c, --chain=<name>     Use predefined chain block-explorer
+  -h --help              Show this screen.
+  -v, --version          Show version.
+  -d, --debug            Print debug logs.
 ```
 
 **Output contract ABI:**
 ```yaml
-ethscan abi 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
+ethscan abi 0xD33526068D116cE69F19A9ee46F0bd304F21A51f -chain ethereum
 ```
 ```yaml
 [
@@ -131,4 +135,21 @@ ethscan code 0xD33526068D116cE69F19A9ee46F0bd304F21A51f
   }
 ]
 
+```
+
+## Development
+
+For local development linking the package is useful. This enables us to use a development version of `ethscan`
+instead of fetching from npm.
+
+```bash
+npm link
+```
+
+## Contribution
+Contributions are welcome! Leave an issue or send an email.
+
+Don't forget to format the code:
+```bash
+npm run fix
 ```
