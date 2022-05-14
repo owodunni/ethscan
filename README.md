@@ -16,7 +16,7 @@ following environment variables can be set:
 ETHSCAN_KEY='Your api key'
 ETHSCAN_URL='https://rinkeby.etherscan.io/api'
 ```
-These can also be set by the cli.
+These can also be set by the cli. There are predefined block-explorers for **Polygon**, **Ethereum**, **Fantom**, **BSC**.
 
 ## Usage
 
