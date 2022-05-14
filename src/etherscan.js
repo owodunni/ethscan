@@ -22,8 +22,8 @@ exports.API = (apiKey, apiUrl) => {
 
   const codeParser = (result) => {
     const data = result[0].SourceCode;
-    if (data.startsWith('// File:')) {
-      return {sources:{'all-in-one.sol':{content:data}}}
+    if (data.startsWith("// File:")) {
+      return { sources: { "all-in-one.sol": { content: data } } };
     } else {
       const dataSliced = result[0].SourceCode.slice(1, -1);
       return JSON.parse(dataSliced);
