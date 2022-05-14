@@ -21,7 +21,15 @@ exports.API = (apiKey, apiUrl) => {
   };
 
   const codeParser = (result) => {
-    return JSON.parse(result[0].SourceCode.slice(1, -1));
+    const data = result[0].SourceCode.slice(1, -1);
+    if (data.startsWith('/ File:')) {
+      const lines = data.split('\n');
+      lines.splice(0, 1);
+      const source = lines.join('\n');
+      return {sources:{'all-in-one.sol':{content:source}}}
+    } else {
+      return JSON.parse(data);
+    }
   };
   return {
     getAbi: (address) => get("contract", "getabi", address),
