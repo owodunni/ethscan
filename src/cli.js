@@ -30,7 +30,7 @@ const arguments = docopt(doc, {
   version: version,
 });
 
-const apiKey = process.env.ETHSCAN_KEY ?? arguments["--api"];
+const apiKey = process.env.ETHSCAN_KEY ?? arguments["--api"] ?? undefined;
 const apiUrl =
   process.env.ETHSCAN_URL ??
   arguments["--url"] ??
