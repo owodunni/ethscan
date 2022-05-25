@@ -29,11 +29,11 @@ exports.API = (apiKey, apiUrl) => {
     if (!data) {
       throw "Contract source code might not be verified";
     }
-    if (data.startsWith("// File:")) {
-      return { sources: { "all-in-one.sol": { content: data } } };
-    } else {
-      const dataSliced = data.slice(1, -1);
+    const dataSliced = data.slice(1, -1);
+    try {
       return JSON.parse(dataSliced);
+    } catch (e) {
+      return { sources: { "all-in-one.sol": { content: data } } };
     }
   };
   return {
